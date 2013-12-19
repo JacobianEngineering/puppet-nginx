@@ -9,6 +9,9 @@ events {
 <% if scope.lookupvar('nginx::params::nx_multi_accept') == 'on' %>multi_accept on;<% end -%>
 <% if scope.lookupvar('nginx::params::nx_events_use') %>use <%= scope.lookupvar('nginx::params::nx_events_use')%>;<% end -%>
 }
+<% if @server_cfg_append -%><% @server_cfg_append.sort_by{|k,v| k}.each do |key,value| -%>
+  <%= key %> <%= value %>;
+<% end -%>
 
 http {
   include       /etc/nginx/mime.types;
